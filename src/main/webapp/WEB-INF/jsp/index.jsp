@@ -7,8 +7,7 @@
 <title>Strona główna</title>
 </head>
 <body>
-
-Cześć
-
+<a href="/register">Rejestracja</a><br/>
+<a href="/login">Logowanie</a>
 </body>
 </html> 

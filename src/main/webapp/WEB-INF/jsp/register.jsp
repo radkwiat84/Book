@@ -25,7 +25,7 @@
 			<tr>
 				<td width="130" align="right"><t:message code="register.name" />
 				</td>
-				<td width="270" align="right"><form:input path="name" size="28"
+				<td width="270" align="left"><form:input path="name" size="28"
 						id="name" /></td>
 			</tr>
 			<tr>

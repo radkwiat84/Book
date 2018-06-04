@@ -28,7 +28,7 @@ public class RegisterController {
 	public String registerUserAction(@Valid User user, BindingResult result, Model model) {
 		String returnPage = null;
 		
-		User  userExist = userService.findUserByEmail(user.getEmail());
+		User userExist = userService.findUserByEmail(user.getEmail());
 		if(userExist != null) {
 			result.rejectValue("email", "error.user", "Podany adres email jest już w bazie");
 		}

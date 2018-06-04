@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/resources/static/css/style.css" />
 <title>Rejestracja</title>
 </head>
 <body>
@@ -28,7 +28,7 @@
 						id="name" /></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><form:form path="name" cssClass="error"/> </td>
+				<td colspan="2" align="center"><form:errors path="name" cssClass="error"/> </td>
 			</tr>
 			
 			<tr>

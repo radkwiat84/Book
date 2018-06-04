@@ -38,10 +38,8 @@ public class RegisterController {
 			userService.saveUser(user);
 			model.addAttribute("message", "Rejestracja udana. Możesz się zalogować");
 			model.addAttribute("user", new User());
-			
 			returnPage = "register";
 		}
-		
 		return returnPage;
 	}
 

@@ -23,11 +23,19 @@
 
 		<table width="500" border="0" cellpadding="1" align="center">
 			<tr>
-				<td width="130" align="right"><t:message code="register.name" />
-				</td>
+				<td width="130" align="right"><t:message code="register.name" /></td>
 				<td width="270" align="left"><form:input path="name" size="28"
 						id="name" /></td>
 			</tr>
+			<tr>
+				<td colspan="2" align="center"><form:form path="name" cssClass="error"/> </td>
+			</tr>
+			
+			<tr>
+				<td width="130" align="right">Nazwisko:</td>
+				<td width="270" align="left"><form:input path="lastName" size="28"/>
+			</tr>
+			
 			<tr>
 				<td colspan="2" align="center"><form:errors path="lastName"
 						cssClass="error" /></td>

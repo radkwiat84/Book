@@ -14,60 +14,53 @@
 </head>
 <body>
 
-	<p align="center">
+	<p>
 		<c:out value="${message }" />
 	</p>
 
-	<form:form id="usersForm" action="adduser" modelAttribute="user"
-		enctype="multipart/form-data" method="POST">
+	<form:form id="usersForm" action="adduser" modelAttribute="user" method="POST">
 
-		<table width="500" border="0" cellpadding="1" align="center">
+		<table>
 			<tr>
-				<td width="130" align="right"><s:message code="register.name" /></td>
-				<td width="270" align="left"><form:input path="name" size="28"
-						id="name" /></td>
+				<td><s:message code="register.name" /></td>
+				<td><form:input path="name" id="name" /></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><form:errors path="name" cssClass="error"/> </td>
+				<td><form:errors path="name"/></td>
 			</tr>
 			
 			<tr>
-				<td width="130" align="right">Nazwisko:</td>
-				<td width="270" align="left"><form:input path="lastName" size="28"/>
+				<td>Nazwisko:</td>
+				<td><form:input path="lastName" id="lastName"/></td>
 			</tr>
 			
 			<tr>
-				<td colspan="2" align="center"><form:errors path="lastName"
-						cssClass="error" /></td>
+				<td><form:errors path="lastName"/></td>
 			</tr>
 			<tr>
-				<td width="130" align="right">Email:</td>
-				<td width="270" align="left"><form:input path="email" size="28" /></td>
+				<td>Email:</td>
+				<td><form:input path="email" id="email"/></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><form:errors path="email"
-						cssClass="error" /></td>
+				<td><form:errors path="email"/></td>
 			</tr>
 
 			<tr>
-				<td width="130" align="right">Hasło:</td>
-				<td width="270" align="left"><form:password path="password"
-						size="28" /></td>
+				<td>Hasło:</td>
+				<td><form:password path="password" id="password"/></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><form:errors path="password"
-						cssClass="error" /></td>
+				<td><form:errors path="password"/></td>
 			</tr>
 
 			<tr>
-				<td colspan="2" align="center" bgcolor="#fff"><input
-					type="submit" value="Zarejestruj" class="formButton" /></td>
+				<td><input type="submit" value="Zarejestruj"/></td>
 			</tr>
 		</table>
 
 	</form:form>
 
-	<p align="center">
+	<p>
 		<a href="/login">Logowanie</a>
 	</p>
 </body>

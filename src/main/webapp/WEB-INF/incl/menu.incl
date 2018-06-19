@@ -1,0 +1,13 @@
+<table width = "1100" border="0" cellpadding="8" cellspacing="4" class="tableMenuBg">
+	<tr>
+		<td align="left" width="900">
+			<a href="/admin/main" class="tableMenuLink"><s:message code="menu.admin.administrator"/></a>
+		</td>
+		
+		<td align="right">
+			<a href="/login" class="tableMenuLink"><s:message code="menu.all.login"/></a>
+			<a href="/register" class="tableMenuLink"><s:message code="menu.all.register"/></a>
+			<a href="/logout" class="tableMenuLink"><s:message code="menu.all.logout"/></a>
+		</td>
+	</tr>
+</table>

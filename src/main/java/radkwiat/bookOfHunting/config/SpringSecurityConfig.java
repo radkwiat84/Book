@@ -42,18 +42,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecur.authorizeRequests()
 		.antMatchers("/").permitAll()
 		.antMatchers("/login").permitAll()
-				.antMatchers("/register").permitAll()
-				.antMatchers("/adduser").permitAll()
-				.antMatchers("/admin/**").hasAnyAuthority("ADMIN")
-				.anyRequest().authenticated()
-				.and().csrf().disable()
-				.formLogin().loginPage("/login")
-				.failureUrl("/login?error=true")
-				.defaultSuccessUrl("/").usernameParameter("email")
-				.passwordParameter("password")
-				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-				.logoutSuccessUrl("/")
-				.and().exceptionHandling().accessDeniedPage("/denied");
+		.antMatchers("/register").permitAll()
+		.antMatchers("/adduser").permitAll()
+//		.antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
+		.anyRequest().authenticated()
+		.and().csrf().disable()
+		.formLogin().loginPage("/login")
+		.failureUrl("/login?error=true")
+		.defaultSuccessUrl("/").usernameParameter("email")
+		.passwordParameter("password")
+		.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.logoutSuccessUrl("/")
+		.and().exceptionHandling().accessDeniedPage("/denied");
 
 	}
 

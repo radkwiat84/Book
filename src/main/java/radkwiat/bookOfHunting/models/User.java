@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -45,6 +46,19 @@ public class User {
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
+	
+	@Transient
+	private int rolaInt; 
+	
+	
+
+	public int getRolaInt() {
+		return rolaInt;
+	}
+
+	public void setRolaInt(int rolaInt) {
+		this.rolaInt = rolaInt;
+	}
 
 	public int getId() {
 		return id;

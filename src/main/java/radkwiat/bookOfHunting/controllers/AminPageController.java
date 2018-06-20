@@ -30,21 +30,7 @@ public class AminPageController {
 
 		for (User users : userList) {
 			
-			/*
-			 * I tutaj jest zmotka z tabelą JOIN => do analizy
-			 * 
-			 * Poniżej iterujemy w pętli po kolekcji typu SET
-			 * można tego nie robić, ale trzeba zrobić podwójny for
-			 * CHYBA :P
-			 */
-			
 			int numberOfRole = users.getRoles().iterator().next().getId();
-			
-			/*
-			 * tutaj analogicznie pobieram z kolekcji SET z JOINA nazwę
-			 * roli użytkownika
-			 */
-			String nameOfRole = users.getRoles().iterator().next().getRole();
 
 			if (numberOfRole == 1) {
 				users.setRolaInt(numberOfRole);

@@ -22,7 +22,7 @@
 			</tr>
 			<tr>
 				<td><input type="submit"
-					value="<s:message code="login.submit"/>" /></td>
+					value="<s:message code="login.button.submit"/>" /></td>
 			</tr>
 		</table>
 	</form>

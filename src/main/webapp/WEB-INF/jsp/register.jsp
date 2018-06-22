@@ -12,8 +12,8 @@
 
 <!-- <link rel="stylesheet" type="text/css"
 	href="/static/css/style.css" /> -->
-	
-<title><s:message code="page.title.register"/></title>
+
+<title><s:message code="page.title.register" /></title>
 </head>
 <body>
 
@@ -34,7 +34,7 @@
 			</tr>
 
 			<tr>
-				<td>Nazwisko:</td>
+				<td><s:message code="register.lastName" /></td>
 				<td><form:input path="lastName" id="lastName" /></td>
 			</tr>
 
@@ -42,7 +42,7 @@
 				<td><form:errors path="lastName" /></td>
 			</tr>
 			<tr>
-				<td>Email:</td>
+				<td><s:message code="register.email" /></td>
 				<td><form:input path="email" id="email" /></td>
 			</tr>
 			<tr>
@@ -50,7 +50,7 @@
 			</tr>
 
 			<tr>
-				<td>Hasło:</td>
+				<td><s:message code="register.password" /></td>
 				<td><form:password path="password" id="password" /></td>
 			</tr>
 			<tr>
@@ -58,14 +58,15 @@
 			</tr>
 
 			<tr>
-				<td><input type="submit" value="Zarejestruj" /></td>
+				<td><input type="submit"
+					value="<s:message code="register.button.register"/>" /></td>
 			</tr>
 		</table>
 
 	</form:form>
 
 	<p>
-		<a href="/login">Logowanie</a>
+		<a href="/login"><s:message code="register.login" /></a>
 	</p>
 </body>
 </html>

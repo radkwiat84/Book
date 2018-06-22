@@ -1,47 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
- <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
- <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
-    
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><s:message code="admin.menu.users"/></title>
+<title><s:message code="admin.menu.users" /></title>
 </head>
 <body>
-<%@include file="/WEB-INF/incl/adminmenu.incl" %>
+	<%@include file="/WEB-INF/incl/adminmenu.incl"%>
 
-<c:forEach var="u" items="${userList }">
-<p>
-	<s:message code="admin.users.id"/> <c:out value="${u.id }"></c:out><br/>
-	<s:message code="register.name"/> <c:out value="${u.name }"></c:out><br/>
-	<s:message code="register.lastName"/> <c:out value="${u.lastName }"></c:out><br/>
-	<s:message code="register.email"/> <c:out value="${u.email }"/> <br/>
-	<s:message code="admin.users.active"/>
-	
-	<c:choose>
-		<c:when test="${u.active == 1 }">
-			<font color="green"><s:message code="admin.users.active.yes"/></font><br/>
-		</c:when>
-		<c:otherwise>
-			<font color="red"><s:message code="admin.users.active.no"/></font><br/>
-		</c:otherwise>
-	</c:choose>
-	
-	<s:message code="admin.users.role"/>
-	<c:choose>
-		<c:when test="${u.rolaInt == 1 }">
-			<s:message code="admin.users.role.admin"/><br/>
-		</c:when>
-		<c:otherwise>
-			<s:message code="admin.users.role.user"/><br/>
-		</c:otherwise>
-	</c:choose>
-</p>
-</c:forEach>
 
+	<br />
+	<table border="1px solid black">
+		<tr>
+			<td><s:message code="admin.users.id" /></td>
+			<td><s:message code="register.name" /></td>
+			<td><s:message code="register.lastName" /></td>
+			<td><s:message code="register.email" /></td>
+			<td><s:message code="admin.users.active" /></td>
+			<td><s:message code="admin.users.role" /></td>
+			<td><s:message code="admin.users.akcje" /></td>
+		</tr>
+
+		<c:forEach var="u" items="${userList }">
+			<tr>
+				<td><c:out value="${u.id }" /></td>
+				<td><c:out value="${u.name }" /></td>
+				<td><c:out value="${u.lastName }" /></td>
+				<td><c:out value="${u.email }" /></td>
+				<td><c:choose>
+						<c:when test="${u.active == 1 }">
+							<font color="green"><s:message
+									code="admin.users.active.yes" /></font>
+						</c:when>
+						<c:otherwise>
+							<font color="red"><s:message code="admin.users.active.no" /></font>
+						</c:otherwise>
+					</c:choose></td>
+				<td><c:choose>
+						<c:when test="${u.rolaInt == 1 }">
+							<font color="blue"><s:message
+									code="admin.users.role.admin" /></font>
+						</c:when>
+						<c:otherwise>
+							<s:message code="admin.users.role.user" />
+						</c:otherwise>
+					</c:choose></td>
+				<td><input type="button"
+					value="<s:message code="button.edit"/>"
+					onclick="window.location.href='${pageContext.request.contextPath}/admin/edit/${u.id}'" />
+				</td>
+			</tr>
+		</c:forEach>
+	</table>
 
 </body>
 </html>

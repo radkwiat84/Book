@@ -9,8 +9,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="/resources/static/css/style.css" />
-<title>Rejestracja</title>
+
+<!-- <link rel="stylesheet" type="text/css"
+	href="/static/css/style.css" /> -->
+	
+<title><s:message code="page.title.register"/></title>
 </head>
 <body>
 
@@ -18,7 +21,8 @@
 		<c:out value="${message }" />
 	</p>
 
-	<form:form id="usersForm" action="adduser" modelAttribute="user" method="POST">
+	<form:form id="usersForm" action="adduser" modelAttribute="user"
+		method="POST">
 
 		<table>
 			<tr>
@@ -26,35 +30,35 @@
 				<td><form:input path="name" id="name" /></td>
 			</tr>
 			<tr>
-				<td><form:errors path="name"/></td>
+				<td><form:errors path="name" /></td>
 			</tr>
-			
+
 			<tr>
 				<td>Nazwisko:</td>
-				<td><form:input path="lastName" id="lastName"/></td>
+				<td><form:input path="lastName" id="lastName" /></td>
 			</tr>
-			
+
 			<tr>
-				<td><form:errors path="lastName"/></td>
+				<td><form:errors path="lastName" /></td>
 			</tr>
 			<tr>
 				<td>Email:</td>
-				<td><form:input path="email" id="email"/></td>
+				<td><form:input path="email" id="email" /></td>
 			</tr>
 			<tr>
-				<td><form:errors path="email"/></td>
+				<td><form:errors path="email" /></td>
 			</tr>
 
 			<tr>
 				<td>Hasło:</td>
-				<td><form:password path="password" id="password"/></td>
+				<td><form:password path="password" id="password" /></td>
 			</tr>
 			<tr>
-				<td><form:errors path="password"/></td>
+				<td><form:errors path="password" /></td>
 			</tr>
 
 			<tr>
-				<td><input type="submit" value="Zarejestruj"/></td>
+				<td><input type="submit" value="Zarejestruj" /></td>
 			</tr>
 		</table>
 

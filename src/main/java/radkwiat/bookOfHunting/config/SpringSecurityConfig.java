@@ -44,6 +44,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/login").permitAll()
 		.antMatchers("/register").permitAll()
 		.antMatchers("/adduser").permitAll()
+		
+		/*
+		 * Będę zabezpieczał poprzez adnotację @Secured
+		 */
 //		.antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN")
 		.anyRequest().authenticated()
 		.and().csrf().disable()

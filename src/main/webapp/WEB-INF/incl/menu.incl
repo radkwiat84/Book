@@ -1,19 +1,27 @@
-<table>
+<table border="1px solid black">
 	<tr>
-		<td>
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<td>
 			<a href="/admin/main"><s:message code="menu.admin.administrator"/></a>
-		</sec:authorize>
 		</td>
-		
-		<td align="right">
+		</sec:authorize>
+	
 		<sec:authorize access="hasRole('ANONYMOUS')">
+		<td>
 			<a href="/login"><s:message code="menu.all.login"/></a>
-			<a href="/register"><s:message code="menu.all.register"/></a>
-		</sec:authorize>
-		<sec:authorize access="isAuthenticated()">	
-			<a href="/logout"><s:message code="menu.all.logout"/></a>
-		</sec:authorize>
 		</td>
+		</sec:authorize>
+		
+		<sec:authorize access="hasRole('ANONYMOUS')">
+		<td>
+			<a href="/register"><s:message code="menu.all.register"/></a>
+		</td>
+		</sec:authorize>
+		
+		<sec:authorize access="isAuthenticated()">	
+		<td>
+			<a href="/logout"><s:message code="menu.all.logout"/></a>
+		</td>
+		</sec:authorize>
 	</tr>
 </table>

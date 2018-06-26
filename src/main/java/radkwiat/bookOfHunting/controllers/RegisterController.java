@@ -19,8 +19,7 @@ public class RegisterController {
 	
 	@GetMapping("/register")
 	public String showRegisterForm(Model model) {
-		User user = new User();
-		model.addAttribute("user", user);
+		model.addAttribute("user", new User());
 		return "register";
 	}
 	
@@ -29,6 +28,7 @@ public class RegisterController {
 		String returnPage = null;
 		
 		User userExist = userService.findUserByEmail(user.getEmail());
+		
 		if(userExist != null) {
 			result.rejectValue("email", "error.user", "Podany adres email jest już w bazie");
 		}
@@ -36,8 +36,7 @@ public class RegisterController {
 			returnPage = "register";
 		} else {
 			userService.saveUser(user);
-			model.addAttribute("message", "Rejestracja udana. Możesz się zalogować");
-			model.addAttribute("user", new User());
+			model.addAttribute("message", "Rejestracja udana. Możesz się zalogować.");
 			returnPage = "register";
 		}
 		return returnPage;

@@ -20,22 +20,23 @@
 	<p>
 		<c:out value="${message }" />
 	</p>
+	
 
-	<form:form id="usersForm" action="adduser" modelAttribute="user"
+	<form:form action="adduser" modelAttribute="user"
 		method="POST">
 
 		<table>
 			<tr>
 				<td><s:message code="register.name" /></td>
-				<td><form:input path="name" id="name" /></td>
+				<td><form:input path="name"/></td>
 			</tr>
 			<tr>
-				<td><form:errors path="name" /></td>
+				<td><form:errors path="name"/></td>
 			</tr>
 
 			<tr>
 				<td><s:message code="register.lastName" /></td>
-				<td><form:input path="lastName" id="lastName" /></td>
+				<td><form:input path="lastName"/></td>
 			</tr>
 
 			<tr>
@@ -43,7 +44,7 @@
 			</tr>
 			<tr>
 				<td><s:message code="register.email" /></td>
-				<td><form:input path="email" id="email" /></td>
+				<td><form:input path="email"/></td>
 			</tr>
 			<tr>
 				<td><form:errors path="email" /></td>
@@ -51,7 +52,7 @@
 
 			<tr>
 				<td><s:message code="register.password" /></td>
-				<td><form:password path="password" id="password" /></td>
+				<td><form:password path="password"/></td>
 			</tr>
 			<tr>
 				<td><form:errors path="password" /></td>

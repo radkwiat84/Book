@@ -11,6 +11,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,12 +19,12 @@ import radkwiat.bookOfHunting.models.User;
 import radkwiat.bookOfHunting.service.UserService;
 
 @Controller
-public class AminPageController {
+public class AdminPageController {
 
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping("/admin/main")
+	@GetMapping("/admin/main")
 	@Secured(value = { "ROLE_ADMIN" })
 	public String showAdminPanel() {
 		return "admin/admin";
@@ -32,21 +33,10 @@ public class AminPageController {
 	@RequestMapping("/admin/users")
 	@Secured({ "ROLE_ADMIN" })
 	public String getAllUsers(Model model) {
-		List<User> userList;
-		userList = userService.findAll();
+		List<User> userList = userService.findAll();
 
-		for (User users : userList) {
-
-			int numberOfRole = users.getRoles().iterator().next().getId();
-
-			
-
-			if (numberOfRole == 1) {
-				users.setRolaInt(numberOfRole);
-			} else if (numberOfRole == 2) {
-				users.setRolaInt(numberOfRole);
-			}
-		}
+		settingRolaInt(userList);
+		
 		model.addAttribute("userList", userList);
 
 		return "admin/users";
@@ -103,20 +93,25 @@ public class AminPageController {
 
 			List<User> userList = userService.findAll();
 
-			for (User users : userList) {
-				int numberOfRole = users.getRoles().iterator().next().getId();
-
-				if (numberOfRole == 1) {
-					users.setRolaInt(numberOfRole);
-				} else if (numberOfRole == 2) {
-					users.setRolaInt(numberOfRole);
-				}
-			}
+			settingRolaInt(userList);
+			
 			model.addAttribute("userList", userList);
 			returnPage = "admin/users";
 		}
 
 		return returnPage;
+	}
+
+	private void settingRolaInt(List<User> userList) {
+		for (User users : userList) {
+			int numberOfRole = users.getRoles().iterator().next().getId();
+
+			if (numberOfRole == 1) {
+				users.setRolaInt(numberOfRole);
+			} else if (numberOfRole == 2) {
+				users.setRolaInt(numberOfRole);
+			}
+		}
 	}
 
 }

@@ -58,7 +58,7 @@
 			<scope>provided</scope>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/a rtifact/org.apache.tomcat.embed/tomcat-embed-jasper -->
+		<!-- https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-jasper -->
 		<dependency>
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>

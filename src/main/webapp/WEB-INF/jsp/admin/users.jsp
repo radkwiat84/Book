@@ -52,8 +52,7 @@
 						</c:otherwise>
 					</c:choose></td>
 				<td><input type="button"
-					value="<s:message code="button.edit"/>"
-					onclick="window.location.href='${pageContext.request.contextPath}/admin/edit/${u.id}'" />
+					value="<s:message code="button.edit"/>" onclick="window.location.href='${pageContext.request.contextPath}/admin/edit/${u.id}'">
 				</td>
 			</tr>
 		</c:forEach>

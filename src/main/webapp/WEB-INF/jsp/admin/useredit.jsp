@@ -12,7 +12,7 @@
 <body>
 	<%@include file="/WEB-INF/incl/adminmenu.incl"%>
 	<p>
-		<form:form id="usersForm" action="/admin/update" modelAttribute="user"
+		<form:form action="/admin/update" modelAttribute="user"
 			method="POST">
 			<form:hidden path="id" />
 			<form:hidden path="password" />
@@ -24,18 +24,18 @@
 				</tr>
 				<tr>
 					<td><s:message code="register.name" /></td>
-					<td><form:input path="name" id="name" /></td>
+					<td><form:input path="name"/></td>
 				</tr>
 				<tr>
 					<td><s:message code="register.lastName" /></td>
-					<td><form:input path="lastName" id="lastName" /></td>
+					<td><form:input path="lastName"/></td>
 				</tr>
 				<tr>
 					<td><form:errors path="lastName" /></td>
 				</tr>
 				<tr>
 					<td><s:message code="register.email" /></td>
-					<td><form:input path="email" id="email" /></td>
+					<td><form:input path="email"/></td>
 				</tr>
 				<tr>
 					<td><form:errors path="email" /></td>

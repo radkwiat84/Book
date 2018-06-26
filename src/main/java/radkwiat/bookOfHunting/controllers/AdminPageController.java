@@ -12,8 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import radkwiat.bookOfHunting.models.User;
 import radkwiat.bookOfHunting.service.UserService;
@@ -36,39 +39,36 @@ public class AdminPageController {
 		List<User> userList = userService.findAll();
 
 		settingRolaInt(userList);
-		
+
 		model.addAttribute("userList", userList);
 
 		return "admin/users";
 	}
 
-	@RequestMapping("/admin/edit/{id}")
+	@GetMapping("/admin/edit/{id}")
 	@Secured({ "ROLE_ADMIN" })
 	public String getUserToEdit(@PathVariable("id") int id, Model model) {
 
 		User user = new User();
-		/*
-		 * automatyczne parsowanie w parametrach metody w adnotacji PathVariable
-		 */
-		// int userId = Integer.parseInt(id);
+		
 		user = userService.findUserById(id);
-
-		Map<Integer, String> roleMap = new HashMap<>();
-		roleMap.put(1, "Administrator");
-		roleMap.put(2, "Użytkownik");
-
 		int rola = user.getRoles().iterator().next().getId();
-
 		user.setRolaInt(rola);
-
-		model.addAttribute("roleMap", roleMap);
 		model.addAttribute("user", user);
-
 		return "admin/useredit";
 	}
 
-	@RequestMapping("/admin/update")
-	@Secured({"ROLE_ADMIN"})
+	@ModelAttribute("roleMap")
+	public Map<Integer, String> roleMap() {
+		Map<Integer, String> roleMap = new HashMap<>();
+		roleMap.put(1, "Administrator");
+		roleMap.put(2, "Użytkownik");
+		return roleMap;
+	}
+	
+	
+	@PostMapping("/admin/update")
+	@Secured({ "ROLE_ADMIN" })
 	public String updateUser(Model model, @Valid User user, BindingResult result) {
 
 		String returnPage = null;
@@ -81,11 +81,6 @@ public class AdminPageController {
 		}
 
 		if (result.hasErrors()) {
-			Map<Integer, String> roleMap = new HashMap<>();
-			roleMap.put(1, "Administrator");
-			roleMap.put(2, "Użytkownik");
-			model.addAttribute("roleMap", roleMap);
-
 			returnPage = "admin/useredit";
 		} else {
 
@@ -94,7 +89,7 @@ public class AdminPageController {
 			List<User> userList = userService.findAll();
 
 			settingRolaInt(userList);
-			
+
 			model.addAttribute("userList", userList);
 			returnPage = "admin/users";
 		}
@@ -102,6 +97,8 @@ public class AdminPageController {
 		return returnPage;
 	}
 
+	
+	
 	private void settingRolaInt(List<User> userList) {
 		for (User users : userList) {
 			int numberOfRole = users.getRoles().iterator().next().getId();

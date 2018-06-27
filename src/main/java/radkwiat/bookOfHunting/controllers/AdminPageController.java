@@ -17,40 +17,41 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
 import radkwiat.bookOfHunting.models.User;
 import radkwiat.bookOfHunting.service.UserService;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminPageController {
 
 	@Autowired
 	private UserService userService;
-
-	@GetMapping("/admin/main")
+	
+	@Autowired
+	
+	@GetMapping("/main")
 	@Secured(value = { "ROLE_ADMIN" })
 	public String showAdminPanel() {
 		return "admin/admin";
 	}
 
-	@RequestMapping("/admin/users")
+	@RequestMapping("/users")
 	@Secured({ "ROLE_ADMIN" })
 	public String getAllUsers(Model model) {
-		List<User> userList = userService.findAll();
 
-		settingRolaInt(userList);
+		List<User> userList = settingRolaInt();
 
 		model.addAttribute("userList", userList);
 
 		return "admin/users";
 	}
 
-	@GetMapping("/admin/edit/{id}")
+	@GetMapping("/edit/{id}")
 	@Secured({ "ROLE_ADMIN" })
-	public String getUserToEdit(@PathVariable("id") int id, Model model) {
+	public String getUserToEdit(@PathVariable int id, Model model) {
 
 		User user = new User();
-		
+
 		user = userService.findUserById(id);
 		int rola = user.getRoles().iterator().next().getId();
 		user.setRolaInt(rola);
@@ -58,16 +59,7 @@ public class AdminPageController {
 		return "admin/useredit";
 	}
 
-	@ModelAttribute("roleMap")
-	public Map<Integer, String> roleMap() {
-		Map<Integer, String> roleMap = new HashMap<>();
-		roleMap.put(1, "Administrator");
-		roleMap.put(2, "Użytkownik");
-		return roleMap;
-	}
-	
-	
-	@PostMapping("/admin/update")
+	@PostMapping("/users/update")
 	@Secured({ "ROLE_ADMIN" })
 	public String updateUser(Model model, @Valid User user, BindingResult result) {
 
@@ -84,12 +76,9 @@ public class AdminPageController {
 			returnPage = "admin/useredit";
 		} else {
 
-			userService.updateUser(rola, user);
+			userService.updateUsersRole(rola, user);
 
-			List<User> userList = userService.findAll();
-
-			settingRolaInt(userList);
-
+			List<User> userList = settingRolaInt();
 			model.addAttribute("userList", userList);
 			returnPage = "admin/users";
 		}
@@ -97,9 +86,39 @@ public class AdminPageController {
 		return returnPage;
 	}
 
+	@GetMapping("/changeuseractivity/{id}")
+	@Secured({ "ROLE_ADMIN" })
+	public String showDeactivationUserPage(@PathVariable int id, Model model) {
+
+		User user = new User();
+		user = userService.findUserById(id);
+		model.addAttribute("user", user);
+		return "admin/usersActivity";
+	}
+	
+
+	@PostMapping("/users/changedactivity")
+	@Secured({ "ROLE_ADMIN" })
+	public String changeActivityOfUser(Model model, User user) {
+	
+		userService.changeActivityOfUser(user);
+		
+		List<User> userList = settingRolaInt();
+		model.addAttribute("userList", userList);
+		return "admin/users";
+	}
 	
 	
-	private void settingRolaInt(List<User> userList) {
+	@ModelAttribute("roleMap")
+	public Map<Integer, String> roleMap() {
+		Map<Integer, String> roleMap = new HashMap<>();
+		roleMap.put(1, "Administrator");
+		roleMap.put(2, "Użytkownik");
+		return roleMap;
+	}
+
+	private List<User> settingRolaInt() {
+		List<User> userList = userService.findAll();
 		for (User users : userList) {
 			int numberOfRole = users.getRoles().iterator().next().getId();
 
@@ -109,6 +128,6 @@ public class AdminPageController {
 				users.setRolaInt(numberOfRole);
 			}
 		}
+		return userList;
 	}
-
 }

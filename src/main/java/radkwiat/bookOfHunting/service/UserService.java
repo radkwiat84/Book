@@ -14,6 +14,10 @@ public interface UserService {
 	
 	public User findUserById(int id);
 	
-	public void updateUser(String rola, User user);
+	public void updateUsersRole(String rola, User user);
+	
+	public void changeActivityOfUser(User user);
 
+	
+	
 }

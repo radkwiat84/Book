@@ -52,8 +52,19 @@
 						</c:otherwise>
 					</c:choose></td>
 				<td><input type="button"
-					value="<s:message code="button.edit"/>" onclick="window.location.href='${pageContext.request.contextPath}/admin/edit/${u.id}'">
-				</td>
+					value="<s:message code="button.edit"/>"
+					onclick="window.location.href='${pageContext.request.contextPath}/admin/edit/${u.id}'">
+					<br /> <c:choose>
+						<c:when test="${u.active == 1 }">
+							<input type="button"
+								value="<s:message code="button.deactivate"/>"
+								onclick="window.location.href='${pageContext.request.contextPath}/admin/changeuseractivity/${u.id }'">
+						</c:when>
+						<c:otherwise>
+							<input type="button" value="<s:message code='button.activate'/>"
+								onclick="window.location.href='${pageContext.request.contextPath }/admin/changeuseractivity/${u.id }'">
+						</c:otherwise>
+					</c:choose></td>
 			</tr>
 		</c:forEach>
 	</table>

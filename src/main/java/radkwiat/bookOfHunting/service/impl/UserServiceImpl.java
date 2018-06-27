@@ -1,4 +1,4 @@
- package radkwiat.bookOfHunting.service.impl;
+package radkwiat.bookOfHunting.service.impl;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -52,13 +52,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void updateUser(String rola, User user) {
+	public void updateUsersRole(String rola, User user) {
 		Role userRole = roleRepository.findByRole(rola);
 		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		userRepository.save(user);
-		
+
 	}
-	
-	
+
+	@Override
+	public void changeActivityOfUser(User user) {
+		if (user.getActive() == 1)
+			user.setActive(0);
+		else if(user.getActive() != 1)
+			user.setActive(1);
+		
+		userRepository.save(user);
+	}
 
 }

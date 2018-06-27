@@ -6,9 +6,10 @@ import org.springframework.stereotype.Repository;
 import radkwiat.bookOfHunting.models.User;
 
 @Repository("userRepository")
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<User, Integer>{
 	
 	public User findByEmail(String email);
  
 	public User findUserById(int id);
+	
 }

@@ -10,15 +10,15 @@
 </head>
 <body>
 
-	<form id="loginForm" action="/login" method="POST">
+	<form action="/login" method="POST">
 		<table>
 			<tr>
 				<td><s:message code="login.email" /></td>
-				<td><input type="text" name="email" id="email" /></td>
+				<td><input type="text" name="email"/></td>
 			</tr>
 			<tr>
 				<td><s:message code="login.password" /></td>
-				<td><input type="password" name="password" id="password" /></td>
+				<td><input type="password" name="password"/></td>
 			</tr>
 			<tr>
 				<td><input type="submit"

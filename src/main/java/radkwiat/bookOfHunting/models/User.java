@@ -56,7 +56,7 @@ public class User {
 		return rolaInt;
 	}
 
-	public void setRolaInt(int rolaInt) {
+	public void setRolaInt(Integer rolaInt) {
 		this.rolaInt = rolaInt;
 	}
 

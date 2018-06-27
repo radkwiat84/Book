@@ -12,11 +12,11 @@
 <body>
 	<%@include file="/WEB-INF/incl/adminmenu.incl"%>
 	<p>
-		<form:form action="/admin/update" modelAttribute="user"
+		<form:form action="/admin/users/update" modelAttribute="user"
 			method="POST">
 			<form:hidden path="id" />
 			<form:hidden path="password" />
-			<form:hidden path="active" />
+ 			<form:hidden path="active" />
 
 			<table>
 				<tr>

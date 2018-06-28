@@ -26,9 +26,9 @@ public class AdminPageController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
-	
+
 	@GetMapping("/main")
 	@Secured(value = { "ROLE_ADMIN" })
 	public String showAdminPanel() {
@@ -68,11 +68,10 @@ public class AdminPageController {
 
 		if (user.getRolaInt() == 1) {
 			rola = "ROLE_ADMIN";
-		} else if(user.getRolaInt() == 2){
-			rola = "ROLE_USER";
-		}
-		else {
+		} else if (user.getRolaInt() == 3) {
 			rola = "ROLE_UPUSER";
+		} else {
+			rola = "ROLE_USER";
 		}
 
 		if (result.hasErrors()) {
@@ -98,20 +97,18 @@ public class AdminPageController {
 		model.addAttribute("user", user);
 		return "admin/usersActivity";
 	}
-	
 
 	@PostMapping("/users/changedactivity")
 	@Secured({ "ROLE_ADMIN" })
 	public String changeActivityOfUser(Model model, User user) {
-	
+
 		userService.changeActivityOfUser(user);
-		
+
 		List<User> userList = settingRolaInt();
 		model.addAttribute("userList", userList);
 		return "admin/users";
 	}
-	
-	
+
 	@ModelAttribute("roleMap")
 	public Map<Integer, String> roleMap() {
 		Map<Integer, String> roleMap = new HashMap<>();
@@ -124,16 +121,7 @@ public class AdminPageController {
 	private List<User> settingRolaInt() {
 		List<User> userList = userService.findAll();
 		for (User users : userList) {
-//			int numberOfRole = users.getRoles().iterator().next().getId();
-
 			users.setRolaInt(users.getRoles().iterator().next().getId());
-//			if (numberOfRole == 1) {
-//				users.setRolaInt(numberOfRole);
-//			} else if (numberOfRole == 2) {
-//				users.setRolaInt(numberOfRole);
-//			} else if(numberOfRole == 3) {
-//				users.setRolaInt(numberOfRole);
-//			}
 		}
 		return userList;
 	}

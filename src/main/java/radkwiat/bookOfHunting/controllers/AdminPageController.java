@@ -68,8 +68,11 @@ public class AdminPageController {
 
 		if (user.getRolaInt() == 1) {
 			rola = "ROLE_ADMIN";
-		} else {
+		} else if(user.getRolaInt() == 2){
 			rola = "ROLE_USER";
+		}
+		else {
+			rola = "ROLE_UPUSER";
 		}
 
 		if (result.hasErrors()) {
@@ -113,20 +116,24 @@ public class AdminPageController {
 	public Map<Integer, String> roleMap() {
 		Map<Integer, String> roleMap = new HashMap<>();
 		roleMap.put(1, "Administrator");
-		roleMap.put(2, "Użytkownik");
+		roleMap.put(2, "Myśliwy");
+		roleMap.put(3, "Łowczy");
 		return roleMap;
 	}
 
 	private List<User> settingRolaInt() {
 		List<User> userList = userService.findAll();
 		for (User users : userList) {
-			int numberOfRole = users.getRoles().iterator().next().getId();
+//			int numberOfRole = users.getRoles().iterator().next().getId();
 
-			if (numberOfRole == 1) {
-				users.setRolaInt(numberOfRole);
-			} else if (numberOfRole == 2) {
-				users.setRolaInt(numberOfRole);
-			}
+			users.setRolaInt(users.getRoles().iterator().next().getId());
+//			if (numberOfRole == 1) {
+//				users.setRolaInt(numberOfRole);
+//			} else if (numberOfRole == 2) {
+//				users.setRolaInt(numberOfRole);
+//			} else if(numberOfRole == 3) {
+//				users.setRolaInt(numberOfRole);
+//			}
 		}
 		return userList;
 	}

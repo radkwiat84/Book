@@ -14,10 +14,11 @@
 <body>
 	<%@include file="/WEB-INF/incl/adminmenu.incl"%>
 
-	<form:form action="/admin/users/changedactivity" modelAttribute="user" method="POST">
+	<form:form action="/admin/users/changedactivity" modelAttribute="user"
+		method="POST">
 
 		<form:hidden path="id" />
-		<form:hidden path="active" /> 
+		<form:hidden path="active" />
 		<form:hidden path="email" />
 		<form:hidden path="password" />
 		<form:hidden path="name" />
@@ -27,16 +28,14 @@
 
 		<table>
 			<tr>
-				<td>
-				<c:choose>
+				<td><c:choose>
 						<c:when test="${user.active==1 }">
 							<s:message code="admin.user.is.active.yes" />
 						</c:when>
 						<c:otherwise>
 							<s:message code="admin.user.is.active.no" />
 						</c:otherwise>
-					</c:choose>
-					</td>
+					</c:choose></td>
 			</tr>
 			<tr>
 				<td><input type="button"
@@ -45,12 +44,10 @@
 					<c:choose>
 						<c:when test="${user.active==1 }">
 							<input type="submit"
-								value="<s:message code='button.deactivate'/>"
-								onclick="window.location.href='${pageContext.request.contextPath }/admin/users/changedactivity'">
+								value="<s:message code='button.deactivate'/>">
 						</c:when>
 						<c:otherwise>
-							<input type="submit" value="<s:message code='button.activate'/>"
-								onclick="window.location.href='${pageContext.request.contextPath }/admin/users/changedactivity'">
+							<input type="submit" value="<s:message code='button.activate'/>">
 						</c:otherwise>
 					</c:choose></td>
 			</tr>

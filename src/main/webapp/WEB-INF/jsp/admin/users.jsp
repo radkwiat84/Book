@@ -47,8 +47,11 @@
 							<font color="blue"><s:message
 									code="admin.users.role.admin" /></font>
 						</c:when>
-						<c:otherwise>
+						<c:when test="${u.rolaInt == 2 }">
 							<s:message code="admin.users.role.user" />
+						</c:when>
+						<c:otherwise>
+							<s:message code="admin.users.role.upUser" />
 						</c:otherwise>
 					</c:choose></td>
 				<td><input type="button"

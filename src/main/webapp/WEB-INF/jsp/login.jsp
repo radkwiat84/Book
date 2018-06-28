@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,11 +15,11 @@
 		<table>
 			<tr>
 				<td><s:message code="login.email" /></td>
-				<td><input type="text" name="email"/></td>
+				<td><input type="text" name="email" /></td>
 			</tr>
 			<tr>
 				<td><s:message code="login.password" /></td>
-				<td><input type="password" name="password"/></td>
+				<td><input type="password" name="password" /></td>
 			</tr>
 			<tr>
 				<td><input type="submit"

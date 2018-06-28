@@ -12,7 +12,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@include file="/WEB-INF/incl/adminmenu.incl"%>
+	<%@include file="/WEB-INF/incl/adminMenu.incl" %>
 
 	<form:form action="/admin/users/changedactivity" modelAttribute="user"
 		method="POST">
@@ -26,7 +26,7 @@
 		<form:hidden path="rolaInt" />
 		<form:hidden path="roles" />
 
-		<table>
+		<table border="1px solid black">
 			<tr>
 				<td><c:choose>
 						<c:when test="${user.active==1 }">

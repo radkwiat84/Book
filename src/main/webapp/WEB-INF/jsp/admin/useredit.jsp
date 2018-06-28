@@ -10,7 +10,7 @@
 <title><s:message code="admin.users.edit.title" /></title>
 </head>
 <body>
-	<%@include file="/WEB-INF/incl/adminmenu.incl"%>
+<%@include file="/WEB-INF/incl/adminMenu.incl" %>
 	<p>
 		<form:form action="/admin/users/update" modelAttribute="user"
 			method="POST">
@@ -18,7 +18,7 @@
 			<form:hidden path="password" />
  			<form:hidden path="active" />
 
-			<table>
+			<table border="1px solid black">
 				<tr>
 					<td><s:message code="admin.users.edit.title" /></td>
 				</tr>

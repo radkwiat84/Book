@@ -24,6 +24,8 @@
 			<tr>
 				<td><input type="submit"
 					value="<s:message code="login.button.submit"/>" /></td>
+					<td><input type="button" value="<s:message code='button.return'/>" 
+					onclick="window.location.href='${pageContext.request.contextPath}/'" >
 			</tr>
 		</table>
 	</form>

@@ -10,6 +10,6 @@
 <title><s:message code="admin.page.title"/></title>
 </head>
 <body>
-<%@include file="/WEB-INF/incl/adminmenu.incl" %>
+<%@include file="/WEB-INF/incl/adminMenu.incl" %>
 </body>
 </html>

@@ -13,26 +13,25 @@ public class HuntingPlan {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="huntigplan_id")
+	@Column(name = "huntingplan_id")
 	private int id;
+	@NotEmpty(message="Rok planu jest wymagany")
+	private short year;
 
-	@NotEmpty
-	private int year;
-	
-	@NotEmpty
+	@NotEmpty(message="Liczba osobników do odstrzału jest wymagana")
+	private short liczbaOdyncow;
+
+	@NotEmpty(message="Liczba osobników do odstrzału jest wymagana")
 	private short liczbaLoch;
-	
-	@NotEmpty
-	private short liczbaOdyńców;
-	
-	@NotEmpty
-	private short liczbaWarchlaków;
-	
-	@NotEmpty
-	private short liczbaPrzelatków;
-	
-	@NotEmpty
-	private short liczbaWycinków;
+
+	@NotEmpty(message="Liczba osobników do odstrzału jest wymagana")
+	private short liczbaWarchlakow;
+
+	@NotEmpty(message="Liczba osobników do odstrzału jest wymagana")
+	private short liczbaPrzelatkow;
+
+	@NotEmpty(message="Liczba osobników do odstrzału jest wymagana")
+	private short liczbaWycinkow;
 
 	public int getId() {
 		return id;
@@ -42,12 +41,20 @@ public class HuntingPlan {
 		this.id = id;
 	}
 
-	public int getYear() {
+	public short getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(short year) {
 		this.year = year;
+	}
+
+	public short getLiczbaOdyncow() {
+		return liczbaOdyncow;
+	}
+
+	public void setLiczbaOdyncow(short liczbaOdyncow) {
+		this.liczbaOdyncow = liczbaOdyncow;
 	}
 
 	public short getLiczbaLoch() {
@@ -58,38 +65,28 @@ public class HuntingPlan {
 		this.liczbaLoch = liczbaLoch;
 	}
 
-	public short getLiczbaOdyńców() {
-		return liczbaOdyńców;
+	public short getLiczbaWarchlakow() {
+		return liczbaWarchlakow;
 	}
 
-	public void setLiczbaOdyńców(short liczbaOdyńców) {
-		this.liczbaOdyńców = liczbaOdyńców;
+	public void setLiczbaWarchlakow(short liczbaWarchlakow) {
+		this.liczbaWarchlakow = liczbaWarchlakow;
 	}
 
-	public short getLiczbaWarchlaków() {
-		return liczbaWarchlaków;
+	public short getLiczbaPrzelatkow() {
+		return liczbaPrzelatkow;
 	}
 
-	public void setLiczbaWarchlaków(short liczbaWarchlaków) {
-		this.liczbaWarchlaków = liczbaWarchlaków;
+	public void setLiczbaPrzelatkow(short liczbaPrzelatkow) {
+		this.liczbaPrzelatkow = liczbaPrzelatkow;
 	}
 
-	public short getLiczbaPrzelatków() {
-		return liczbaPrzelatków;
+	public short getLiczbaWycinkow() {
+		return liczbaWycinkow;
 	}
 
-	public void setLiczbaPrzelatków(short liczbaPrzelatków) {
-		this.liczbaPrzelatków = liczbaPrzelatków;
+	public void setLiczbaWycinkow(short liczbaWycinkow) {
+		this.liczbaWycinkow = liczbaWycinkow;
 	}
 
-	public short getLiczbaWycinków() {
-		return liczbaWycinków;
-	}
-
-	public void setLiczbaWycinków(short liczbaWycinków) {
-		this.liczbaWycinków = liczbaWycinków;
-	}
-	
-
-	
 }

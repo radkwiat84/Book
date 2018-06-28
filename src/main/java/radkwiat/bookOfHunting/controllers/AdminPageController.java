@@ -56,7 +56,7 @@ public class AdminPageController {
 		int rola = user.getRoles().iterator().next().getId();
 		user.setRolaInt(rola);
 		model.addAttribute("user", user);
-		return "admin/useredit";
+		return "admin/userEdit";
 	}
 
 	@PostMapping("/users/update")
@@ -75,7 +75,7 @@ public class AdminPageController {
 		}
 
 		if (result.hasErrors()) {
-			returnPage = "admin/useredit";
+			returnPage = "admin/userEdit";
 		} else {
 
 			userService.updateUsersRole(rola, user);

@@ -18,6 +18,12 @@
 		</td>
 		</sec:authorize>
 		
+		<sec:authorize access="hasRole('ROLE_UPUSER')">
+		<td>
+			<a href="/upuser/huntingplans"><s:message code="hunting.plans"/></a>
+		</td>
+		</sec:authorize>
+		
 		<sec:authorize access="isAuthenticated()">	
 		<td>
 			<a href="/logout"><s:message code="menu.all.logout"/></a>

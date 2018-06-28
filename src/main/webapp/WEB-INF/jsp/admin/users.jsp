@@ -12,9 +12,7 @@
 <title><s:message code="admin.menu.users" /></title>
 </head>
 <body>
-	<%@include file="/WEB-INF/incl/adminmenu.incl"%>
-
-
+	<%@include file="/WEB-INF/incl/adminMenu.incl" %>
 	<br />
 	<table border="1px solid black">
 		<tr>

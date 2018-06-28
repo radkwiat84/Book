@@ -25,7 +25,7 @@
 	<form:form action="adduser" modelAttribute="user"
 		method="POST">
 
-		<table>
+		<table border="1px">
 			<tr>
 				<td><s:message code="register.name" /></td>
 				<td><form:input path="name"/></td>

@@ -21,4 +21,14 @@ public class HuntingPlanServiceImpl implements HuntingPlanService{
 		return huntingPlanRepository.findById(id);
 	}
 
+	@Override
+	public HuntingPlan findHuntingPlanByHuntingSeason(String season) {
+		return huntingPlanRepository.findByHuntingSeason(season);
+	}
+
+	@Override
+	public void saveHuntingPlan(HuntingPlan huntingPlan) {
+		huntingPlanRepository.save(huntingPlan);		
+	}
+
 }

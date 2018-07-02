@@ -5,33 +5,39 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class HuntingPlan {
 
+	@Transient
+	final String error = "Liczba osobników do odstrzału jest wymagana";
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "huntingplan_id")
 	private int id;
-	@NotEmpty(message="Rok planu jest wymagany")
-	private short year;
+	
+	@NotEmpty(message = "Rok planu jest wymagany")
+	private String huntingSeason;
 
-	@NotEmpty(message="Liczba osobników do odstrzału jest wymagana")
-	private short liczbaOdyncow;
+	// ==============DZIK================================================
+	@NotEmpty(message = error)
+	private String liczbaOdyncow;
 
-	@NotEmpty(message="Liczba osobników do odstrzału jest wymagana")
-	private short liczbaLoch;
+	@NotEmpty(message = error)
+	private String liczbaLoch;
 
-	@NotEmpty(message="Liczba osobników do odstrzału jest wymagana")
-	private short liczbaWarchlakow;
+	@NotEmpty(message = error)
+	private String liczbaWarchlakow;
 
-	@NotEmpty(message="Liczba osobników do odstrzału jest wymagana")
-	private short liczbaPrzelatkow;
+	@NotEmpty(message = error)
+	private String liczbaPrzelatkow;
 
-	@NotEmpty(message="Liczba osobników do odstrzału jest wymagana")
-	private short liczbaWycinkow;
+	@NotEmpty(message = error)
+	private String liczbaWycinkow;
 
 	public int getId() {
 		return id;
@@ -41,51 +47,51 @@ public class HuntingPlan {
 		this.id = id;
 	}
 
-	public short getYear() {
-		return year;
+	public String getHuntingSeason() {
+		return huntingSeason;
 	}
 
-	public void setYear(short year) {
-		this.year = year;
+	public void setHuntingSeason(String huntingSeason) {
+		this.huntingSeason = huntingSeason;
 	}
 
-	public short getLiczbaOdyncow() {
+	public String getLiczbaOdyncow() {
 		return liczbaOdyncow;
 	}
 
-	public void setLiczbaOdyncow(short liczbaOdyncow) {
+	public void setLiczbaOdyncow(String liczbaOdyncow) {
 		this.liczbaOdyncow = liczbaOdyncow;
 	}
 
-	public short getLiczbaLoch() {
+	public String getLiczbaLoch() {
 		return liczbaLoch;
 	}
 
-	public void setLiczbaLoch(short liczbaLoch) {
+	public void setLiczbaLoch(String liczbaLoch) {
 		this.liczbaLoch = liczbaLoch;
 	}
 
-	public short getLiczbaWarchlakow() {
+	public String getLiczbaWarchlakow() {
 		return liczbaWarchlakow;
 	}
 
-	public void setLiczbaWarchlakow(short liczbaWarchlakow) {
+	public void setLiczbaWarchlakow(String liczbaWarchlakow) {
 		this.liczbaWarchlakow = liczbaWarchlakow;
 	}
 
-	public short getLiczbaPrzelatkow() {
+	public String getLiczbaPrzelatkow() {
 		return liczbaPrzelatkow;
 	}
 
-	public void setLiczbaPrzelatkow(short liczbaPrzelatkow) {
+	public void setLiczbaPrzelatkow(String liczbaPrzelatkow) {
 		this.liczbaPrzelatkow = liczbaPrzelatkow;
 	}
 
-	public short getLiczbaWycinkow() {
+	public String getLiczbaWycinkow() {
 		return liczbaWycinkow;
 	}
 
-	public void setLiczbaWycinkow(short liczbaWycinkow) {
+	public void setLiczbaWycinkow(String liczbaWycinkow) {
 		this.liczbaWycinkow = liczbaWycinkow;
 	}
 

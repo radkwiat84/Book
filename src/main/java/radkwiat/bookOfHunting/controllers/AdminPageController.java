@@ -46,6 +46,10 @@ public class AdminPageController {
 		return "admin/users";
 	}
 
+	/*
+	 * Do modyfikacji metoda z ROLAINT (dwie role)
+	 */
+	
 	@GetMapping("/edit/{id}")
 	@Secured({ "ROLE_ADMIN" })
 	public String getUserToEdit(@PathVariable int id, Model model) {
@@ -69,7 +73,7 @@ public class AdminPageController {
 		if (user.getRolaInt() == 1) {
 			rola = "ROLE_ADMIN";
 		} else if (user.getRolaInt() == 3) {
-			rola = "ROLE_UPUSER";
+			rola = "ROLE_LOWCZY";
 		} else {
 			rola = "ROLE_USER";
 		}

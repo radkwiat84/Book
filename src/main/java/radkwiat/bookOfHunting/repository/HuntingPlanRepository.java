@@ -10,4 +10,6 @@ public interface HuntingPlanRepository extends JpaRepository<HuntingPlan, Intege
 
 	public HuntingPlan findById(int id);
 	
+	public HuntingPlan findByHuntingSeason(String season);
+	
 }

@@ -3,6 +3,8 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,7 +17,8 @@
 
 	<table border="1px solid black">
 		<tr>
-			<td><s:message code="hunting.plan" /></td>
+			<td><s:message code="hunting.plan" /> <c:out value="${huntingPlan.huntingSeason }"/></td>
+			
 		</tr>
 		<tr>
 			<td><s:message code="hunting.plan.zwierze" /></td>
@@ -39,14 +42,13 @@
 		</tr>
 		<tr>
 			<td><s:message code="hunting.plan.wycinek" /></td>
-			<td><c:out value="${huntingPlan.liczbaPrzelatkow }" /></td>
+			<td><c:out value="${huntingPlan.liczbaWycinkow }" /></td>
 		</tr>
 		<tr>
 			<td><input type="button" value="<s:message code='button.edit'/>"
-				onclick="window.location.href='${pageContext.request.contextPath}/upuser/huntingplan/update'"></td>
-			<td><input type="button"
-				value="<s:message code='button.return'/>"
-				onclick="window.location.href='${pageContext.request.contextPath}/upuser/huntingplans'">
+				onclick="window.location.href='${pageContext.request.contextPath}/lowczy/huntingplan/update/${huntingPlan.id }'"></td>
+				<td><input type="button" value="<s:message code='button.return'/>"
+				onclick="window.location.href='${pageContext.request.contextPath}/lowczy/huntingplans'"></td>
 		</tr>
 	</table>
 </body>

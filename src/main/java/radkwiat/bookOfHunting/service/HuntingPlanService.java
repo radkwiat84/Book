@@ -6,4 +6,7 @@ public interface HuntingPlanService {
 
 	public HuntingPlan findHuntingPlanById(int id);
 	
+	public HuntingPlan findHuntingPlanByHuntingSeason(String season);
+	
+	public void saveHuntingPlan(HuntingPlan huntingPlan);
 }

@@ -18,10 +18,14 @@
 		</td>
 		</sec:authorize>
 		
-		<sec:authorize access="hasRole('ROLE_UPUSER')">
+		<sec:authorize access="hasRole('ROLE_LOWCZY')">
 		<td>
-			<a href="/upuser/huntingplans"><s:message code="hunting.plans"/></a>
+			<a href="/lowczy/huntingplan/create"><s:message code="hunting.plan.create"/></a>
 		</td>
+		<td>
+			<a href="/lowczy/huntingplans"><s:message code="hunting.plans"/></a>
+		</td>
+		
 		</sec:authorize>
 		
 		<sec:authorize access="isAuthenticated()">	

@@ -12,7 +12,7 @@
 <title><s:message code="admin.menu.users" /></title>
 </head>
 <body>
-	<%@include file="/WEB-INF/incl/adminMenu.incl" %>
+	<%@include file="/WEB-INF/incl/adminMenu.incl"%>
 	<br />
 	<table border="1px solid black">
 		<tr>
@@ -46,10 +46,10 @@
 									code="admin.users.role.admin" /></font>
 						</c:when>
 						<c:when test="${u.rolaInt == 2 }">
-							<s:message code="admin.users.role.user" />
+							<s:message code="admin.users.role.mysliwy" />
 						</c:when>
 						<c:otherwise>
-							<s:message code="admin.users.role.upUser" />
+							<s:message code="admin.users.role.lowczy" />
 						</c:otherwise>
 					</c:choose></td>
 				<td><input type="button"

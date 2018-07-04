@@ -72,10 +72,10 @@ public class AdminPageController {
 
 		if (user.getRolaInt() == 1) {
 			rola = "ROLE_ADMIN";
-		} else if (user.getRolaInt() == 3) {
-			rola = "ROLE_LOWCZY";
+		} else if (user.getRolaInt() == 2) {
+			rola = "ROLE_MYSLIWY";
 		} else {
-			rola = "ROLE_USER";
+			rola = "ROLE_LOWCZY";
 		}
 
 		if (result.hasErrors()) {

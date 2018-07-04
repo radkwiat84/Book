@@ -25,7 +25,6 @@ public class RegisterController {
 	
 	@PostMapping("/adduser")
 	public String registerUserAction(@Valid User user, BindingResult result, Model model) {
-		String returnPage = null;
 		
 		User userExist = userService.findUserByEmail(user.getEmail());
 		
@@ -33,13 +32,12 @@ public class RegisterController {
 			result.rejectValue("email", "error.user", "Podany adres email jest już w bazie");
 		}
 		if(result.hasErrors()) {
-			returnPage = "register";
+			return "register";
 		} else {
 			userService.saveUser(user);
 			model.addAttribute("message", "Rejestracja udana. Możesz się zalogować.");
-			returnPage = "register";
+			return "index";
 		}
-		return returnPage;
 	}
 
 }

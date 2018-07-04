@@ -18,7 +18,6 @@
 	<table border="1px solid black">
 		<tr>
 			<td><s:message code="hunting.plan" /> <c:out value="${huntingPlan.huntingSeason }"/></td>
-			
 		</tr>
 		<tr>
 			<td><s:message code="hunting.plan.zwierze" /></td>

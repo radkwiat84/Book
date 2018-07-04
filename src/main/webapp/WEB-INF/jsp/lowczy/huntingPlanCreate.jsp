@@ -21,7 +21,7 @@
 		<table border="1px solid black">
 			<tr>
 				<td><s:message code="hunting.plan.hunting.season" /></td>
-				<td><form:select path="huntingSeason" items="${seasons }" />
+				<td><form:select path="huntingSeason" items ="${season }" /></td>
 			</tr>
 			<tr>
 				<td><form:errors path="huntingSeason" /></td>

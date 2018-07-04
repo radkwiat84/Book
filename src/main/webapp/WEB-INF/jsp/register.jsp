@@ -26,6 +26,7 @@
 
 	<form:form action="adduser" modelAttribute="user" method="POST">
 
+
 		<s:message code="register.name" />
 		<form:input path="name" />
 		<br />

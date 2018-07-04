@@ -1,5 +1,7 @@
 package radkwiat.bookOfHunting.controllers;
 
+import java.time.LocalDateTime;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import radkwiat.bookOfHunting.models.HuntingPlan;
 import radkwiat.bookOfHunting.repository.HuntingPlanRepository;
-import radkwiat.bookOfHunting.service.impl.HuntingPlanServiceImpl;
+import radkwiat.bookOfHunting.service.HuntingPlanService;
 
 @Controller
 @RequestMapping("/lowczy")
@@ -28,31 +30,33 @@ public class LowczyPageController {
 	HuntingPlanRepository huntingPlanRepository;
 
 	@Autowired
-	HuntingPlanServiceImpl huntingPlanServiceImpl;
+	HuntingPlanService huntingPlanService;
 
-	
 	@GetMapping("/huntingplan/create")
 	public String huntingPlanCreate(Model model) {
+		String season = getSeasonToCreateHuntnigPlan();
+		HuntingPlan isSeasonExist = huntingPlanService.findHuntingPlanByHuntingSeason(season);
+		if (isSeasonExist != null) {
+			model.addAttribute("message", "Plan polowań na sezon " + season + " został już stworzony.");
+			return "index";
+		}
 		model.addAttribute("huntingPlan", new HuntingPlan());
 		return "lowczy/huntingPlanCreate";
+
 	}
 
 	@PostMapping("/huntingplan/created")
 	public String huntingPlaneCreated(Model model, @Valid HuntingPlan huntingPlan, BindingResult result) {
-
-		HuntingPlan isExist = huntingPlanServiceImpl.findHuntingPlanByHuntingSeason(huntingPlan.getHuntingSeason());
-		if (isExist != null)
-			result.rejectValue("huntingSeason", "errorHuntingPlan", "Podany plan na sezon łowiecki jest już stworzony.");
-		if(result.hasErrors())
+		String season = getSeasonToCreateHuntnigPlan();
+		if (result.hasErrors())
 			return "lowczy/huntingPlanCreate";
 		else
-			huntingPlanServiceImpl.saveHuntingPlan(huntingPlan);
-			model.addAttribute("message", "Plan na sezon łowiecki został poprawnie utworzony.");
+			huntingPlanService.saveHuntingPlan(huntingPlan);
+		model.addAttribute("message", "Plan na sezon łowiecki " + season + " został poprawnie utworzony.");
 
 		return "index";
 	}
 
-	
 	@RequestMapping("/huntingplans")
 	@Secured({ "ROLE_LOWCZY" })
 	public String showHuntingPlans(Model model) {
@@ -64,30 +68,39 @@ public class LowczyPageController {
 	@GetMapping("/huntingplan/{id}")
 	@Secured({ "ROLE_LOWCZY" })
 	public String showHuntingPlan(Model model, @PathVariable int id) {
-		HuntingPlan huntingPlan = huntingPlanServiceImpl.findHuntingPlanById(id);
+		HuntingPlan huntingPlan = huntingPlanService.findHuntingPlanById(id);
 		model.addAttribute("huntingPlan", huntingPlan);
 		return "lowczy/huntingPlan";
 	}
 
 	@GetMapping("/huntingplan/update/{id}")
 	public String editHuntinPlan(Model model, @PathVariable int id) {
-		HuntingPlan huntingPlan = huntingPlanServiceImpl.findHuntingPlanById(id);
-		model.addAttribute("huntingPlan", huntingPlan);		
+		HuntingPlan huntingPlan = huntingPlanService.findHuntingPlanById(id);
+		model.addAttribute("huntingPlan", huntingPlan);
 		return "lowczy/huntingPlanEdit";
 	}
-	
-	
+
 	@PostMapping("huntingplan/updated")
 	public String editedHuntingPlan(Model model, @Valid HuntingPlan huntingPlan, BindingResult result) {
-		
-		if(result.hasErrors())
+
+		if (result.hasErrors())
 			return "lowczy/huntingPlanEdit";
-		huntingPlanServiceImpl.saveHuntingPlan(huntingPlan);
-		List <HuntingPlan> huntingPlanList = huntingPlanRepository.findAll();
+		huntingPlanService.saveHuntingPlan(huntingPlan);
+		List<HuntingPlan> huntingPlanList = huntingPlanRepository.findAll();
 		model.addAttribute("huntingPlanList", huntingPlanList);
-		model.addAttribute("updateMessage", "Poprawnie edytowano plan łowiecki.");
-		model.addAttribute("huntingPlan", huntingPlan);
+		model.addAttribute("updateMessage",
+				"Poprawnie edytowano plan łowiecki na sezon " + huntingPlan.getHuntingSeason() + ".");
 		return "lowczy/huntingPlans";
+	}
+
+	@RequestMapping("/huntingplan/current")
+	public String showCurrentHuntingPlan(Model model) {
+
+		HuntingPlan huntingPlan = new HuntingPlan();
+		huntingPlan = huntingPlanService.findHuntingPlanByCreationYear(findOutCurrentHuntingPlan());
+		
+		model.addAttribute("huntingPlan", huntingPlan);
+		return "lowczy/huntingPlan";
 	}
 
 	@ModelAttribute("data")
@@ -101,14 +114,42 @@ public class LowczyPageController {
 		return data;
 	}
 
-	@ModelAttribute("seasons")
-	public List<String> seasons() {
-		List<String> seasons = new ArrayList<>();
-		seasons.add("2018/2019");
-		seasons.add("2019/2020");
-		seasons.add("2020/2021");
-		seasons.add("2021/2022");
-		return seasons;
+	@ModelAttribute("season")
+	public List<String> season() {
+		List<String> season = new ArrayList<>();
+		String seasonToCreate = getSeasonToCreateHuntnigPlan();
+		season.add(seasonToCreate);
+		return season;
+	}
+
+	private String getSeasonToCreateHuntnigPlan() {
+		int year = Year.now().getValue();
+		String season = "" + year + "/" + (year + 1);
+		return season;
+	}
+	
+	private Integer findOutCurrentHuntingPlan() {
+		Integer yearOfCreatingHuntingPlan = null;
+
+		int currentYear = Year.now().getValue();
+		LocalDateTime currentTime = LocalDateTime.now();
+		LocalDateTime startOfTheSeasonInFirstPart = 
+				LocalDateTime.parse(currentYear + "-04-01T00:00");
+		LocalDateTime endOfTheSeasonInFirstPart = 
+				LocalDateTime.parse((currentYear + 1) + "-03-31T23:59:59.999");
+		
+		LocalDateTime startOfTheSeasonInSecondPart = 
+				LocalDateTime.parse((currentYear-1)+"-04-01T00:00");
+		LocalDateTime endOfTheSeasonInSecondPart = 
+				LocalDateTime.parse(currentYear+"-03-31T23:59:59.999");
+
+		if (currentTime.isAfter(startOfTheSeasonInFirstPart) && currentTime.isBefore(endOfTheSeasonInFirstPart)) {
+			yearOfCreatingHuntingPlan = currentYear;
+		} else if(currentTime.isAfter(startOfTheSeasonInSecondPart)&& currentTime.isBefore(endOfTheSeasonInSecondPart)){
+			yearOfCreatingHuntingPlan = currentYear - 1;
+		}
+		
+		return yearOfCreatingHuntingPlan;
 	}
 
 }

@@ -9,4 +9,7 @@ public interface HuntingPlanService {
 	public HuntingPlan findHuntingPlanByHuntingSeason(String season);
 	
 	public void saveHuntingPlan(HuntingPlan huntingPlan);
+	
+	public HuntingPlan findHuntingPlanByCreationYear(int creationYear);
+	
 }

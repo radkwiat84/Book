@@ -22,6 +22,9 @@ public class HuntingPlan {
 	
 	@NotEmpty(message = "Rok planu jest wymagany")
 	private String huntingSeason;
+	
+//	@Transient
+	private int creatingYear;
 
 	// ==============DZIK================================================
 	@NotEmpty(message = error)
@@ -95,4 +98,13 @@ public class HuntingPlan {
 		this.liczbaWycinkow = liczbaWycinkow;
 	}
 
+	public int getYear() {
+		return creatingYear;
+	}
+
+	public void setYear(int year) {
+		this.creatingYear = year;
+	}
+
+	
 }

@@ -31,6 +31,10 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByEmail(email);
 	}
 
+	/*
+	 * do modyfikacji poniższa metoda. Do rozważenia rola do nastawienia.  
+	 */
+	
 	@Override
 	public void saveUser(User user) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -51,6 +55,7 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findUserById(id);
 	}
 
+	//do możliwej modyfikacji (rozważyć jak przekazać argument do setRoles
 	@Override
 	public void updateUsersRole(String rola, User user) {
 		Role userRole = roleRepository.findByRole(rola);

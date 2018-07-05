@@ -1,10 +1,13 @@
 package radkwiat.bookOfHunting.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,9 +26,10 @@ public class HuntingPlan {
 	@NotEmpty(message = "Rok planu jest wymagany")
 	private String huntingSeason;
 	
-//	@Transient
-	private int creatingYear;
-
+	@OneToMany(mappedBy="huntingPlan")
+	private List<User> userList;
+	
+	
 	// ==============DZIK================================================
 	@NotEmpty(message = error)
 	private String liczbaOdyncow;
@@ -41,9 +45,31 @@ public class HuntingPlan {
 
 	@NotEmpty(message = error)
 	private String liczbaWycinkow;
-
+	
+	
+	
+//=============================GETERY I SETERY===============================
+	
+	
+	
 	public int getId() {
 		return id;
+	}
+
+	public int getCreatingYear() {
+		return creatingYear;
+	}
+
+	public void setCreatingYear(int creatingYear) {
+		this.creatingYear = creatingYear;
+	}
+
+	public List<User> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
 	}
 
 	public void setId(int id) {

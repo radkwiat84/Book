@@ -24,6 +24,7 @@ import radkwiat.bookOfHunting.service.HuntingPlanService;
 
 @Controller
 @RequestMapping("/lowczy")
+
 public class LowczyPageController {
 
 	@Autowired
@@ -33,6 +34,7 @@ public class LowczyPageController {
 	HuntingPlanService huntingPlanService;
 
 	@GetMapping("/huntingplan/create")
+	@Secured({"ROLE_LOWCZY"})
 	public String huntingPlanCreate(Model model) {
 		String season = getSeasonToCreateHuntnigPlan();
 		HuntingPlan isSeasonExist = huntingPlanService.findHuntingPlanByHuntingSeason(season);
@@ -46,6 +48,7 @@ public class LowczyPageController {
 	}
 
 	@PostMapping("/huntingplan/created")
+	@Secured({"ROLE_LOWCZY"})
 	public String huntingPlaneCreated(Model model, @Valid HuntingPlan huntingPlan, BindingResult result) {
 		String season = getSeasonToCreateHuntnigPlan();
 		if (result.hasErrors())
@@ -74,6 +77,7 @@ public class LowczyPageController {
 	}
 
 	@GetMapping("/huntingplan/update/{id}")
+	@Secured({"ROLE_LOWCZY"})
 	public String editHuntinPlan(Model model, @PathVariable int id) {
 		HuntingPlan huntingPlan = huntingPlanService.findHuntingPlanById(id);
 		model.addAttribute("huntingPlan", huntingPlan);
@@ -81,6 +85,7 @@ public class LowczyPageController {
 	}
 
 	@PostMapping("huntingplan/updated")
+	@Secured({"ROLE_LOWCZY"})
 	public String editedHuntingPlan(Model model, @Valid HuntingPlan huntingPlan, BindingResult result) {
 
 		if (result.hasErrors())
@@ -94,6 +99,7 @@ public class LowczyPageController {
 	}
 
 	@RequestMapping("/huntingplan/current")
+	@Secured({"ROLE_LOWCZY"})
 	public String showCurrentHuntingPlan(Model model) {
 
 		HuntingPlan huntingPlan = new HuntingPlan();

@@ -54,6 +54,41 @@
 
 		<form:errors path="password" />
 		<br />
+		
+		<s:message code="register.city"/>
+		<form:input path="city"/>
+		<br/>
+		
+		<form:errors path="city"/>
+		<br/>
+		
+		<s:message code="register.street"/>
+		<form:input path="street"/>
+		<br/>
+		
+		<form:errors path="street"/>
+		<br/>
+		
+		<s:message code="register.number.of.building"/>
+		<form:input path="numberOfBuilding"/>
+		<br/>
+		
+		<form:errors path="numberOfBuilding"/>
+		<br/>
+		
+		<s:message code="register.number.of.apartment"/>
+		<form:input path="numberOfApartment"/>
+		<br/>
+		
+		<form:errors path="numberOfApartment"/>
+		<br/>
+		
+		<s:message code="register.post.code"/>
+		<form:input path="postCode"/>
+		<br/>
+		
+		<form:errors path="postCode"/>
+		<br/>
 
 		<input type="submit"
 			value="<s:message code="register.button.register"/>" />

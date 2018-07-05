@@ -26,6 +26,8 @@ public class HuntingPlan {
 	@NotEmpty(message = "Rok planu jest wymagany")
 	private String huntingSeason;
 	
+	private int creatingYear;
+	
 	@OneToMany(mappedBy="huntingPlan")
 	private List<User> userList;
 	

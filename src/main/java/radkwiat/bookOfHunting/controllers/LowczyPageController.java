@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import radkwiat.bookOfHunting.models.HuntingPlan;
+import radkwiat.bookOfHunting.models.User;
 import radkwiat.bookOfHunting.repository.HuntingPlanRepository;
 import radkwiat.bookOfHunting.service.HuntingPlanService;
+import radkwiat.bookOfHunting.service.UserService;
 
 @Controller
 @RequestMapping("/lowczy")
@@ -29,6 +31,9 @@ public class LowczyPageController {
 
 	@Autowired
 	HuntingPlanRepository huntingPlanRepository;
+	
+	@Autowired
+	UserService userService;
 
 	@Autowired
 	HuntingPlanService huntingPlanService;
@@ -108,7 +113,18 @@ public class LowczyPageController {
 		model.addAttribute("huntingPlan", huntingPlan);
 		return "lowczy/huntingPlan";
 	}
+	
+	@RequestMapping("/userslist")
+	public String showUsersList(Model model) {
+		List<User> usersList = new ArrayList<>();
+		usersList = userService.findAll();
+		model.addAttribute("usersList", usersList);
+		return "lowczy/usersList";
+	}
 
+	
+	
+	
 	@ModelAttribute("data")
 	public List<String> fillingHuntinPlan() {
 		List<String> data = new ArrayList<>();

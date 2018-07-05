@@ -1,33 +1,23 @@
 <table border="1px solid black">
 	<tr>
 		<sec:authorize access="hasRole('ROLE_ADMIN')">
-		<td>
-			<a href="/admin/main"><s:message code="menu.admin.administrator"/></a>
-		</td>
+		<td><a href="/admin/main"><s:message code="menu.admin.administrator"/></a></td>
 		</sec:authorize>
 	
 		<sec:authorize access="hasRole('ANONYMOUS')">
-		<td>
-			<a href="/login"><s:message code="menu.all.login"/></a>
-		</td>
+		<td><a href="/login"><s:message code="menu.all.login"/></a></td>
 		</sec:authorize>
 		
 		<sec:authorize access="hasRole('ANONYMOUS')">
-		<td>
-			<a href="/register"><s:message code="menu.all.register"/></a>
-		</td>
+		<td><a href="/register"><s:message code="menu.all.register"/></a></td>
 		</sec:authorize>
 		
 		<sec:authorize access="hasRole('ROLE_LOWCZY')">
-		<td>
-			<a href="/lowczy/huntingplan/create"><s:message code="hunting.plan.create"/></a>
-		</td>
-		<td>
-			<a href="/lowczy/huntingplans"><s:message code="hunting.plans"/></a>
-		</td>
-		<td>
-			<a href="/lowczy/huntingplan/current"><s:message code="hunting.plan.current"/></a>
-		</td>
+		<td><a href="/lowczy/huntingplan/create"><s:message code="hunting.plan.create"/></a></td>
+		<td><a href="/lowczy/huntingplans"><s:message code="hunting.plans"/></a></td>
+		<td><a href="/lowczy/huntingplan/current"><s:message code="hunting.plan.current"/></a></td>
+		<td><a href="/lowczy/userslist"/><s:message code="shooting.users.list"/></a></td>
+		
 		
 		</sec:authorize>
 		

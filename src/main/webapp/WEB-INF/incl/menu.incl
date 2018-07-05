@@ -17,6 +17,7 @@
 		<td><a href="/lowczy/huntingplans"><s:message code="hunting.plans"/></a></td>
 		<td><a href="/lowczy/huntingplan/current"><s:message code="hunting.plan.current"/></a></td>
 		<td><a href="/lowczy/userslist"/><s:message code="shooting.users.list"/></a></td>
+		<td><a href="/lowczy/shootinglist"/><s:message code="shooting.shooting.list"/></a></td>
 		
 		
 		</sec:authorize>

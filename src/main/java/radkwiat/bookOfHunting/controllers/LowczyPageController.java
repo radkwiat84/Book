@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import radkwiat.bookOfHunting.models.HuntingPlan;
+import radkwiat.bookOfHunting.models.Shooting;
 import radkwiat.bookOfHunting.models.User;
 import radkwiat.bookOfHunting.repository.HuntingPlanRepository;
+import radkwiat.bookOfHunting.repository.ShootingRepository;
 import radkwiat.bookOfHunting.service.HuntingPlanService;
+import radkwiat.bookOfHunting.service.ShootingService;
 import radkwiat.bookOfHunting.service.UserService;
 
 @Controller
@@ -31,15 +34,21 @@ public class LowczyPageController {
 
 	@Autowired
 	HuntingPlanRepository huntingPlanRepository;
-	
+
 	@Autowired
 	UserService userService;
 
 	@Autowired
 	HuntingPlanService huntingPlanService;
 
+	@Autowired
+	ShootingService shootingService;
+	
+	@Autowired
+	ShootingRepository shootingRepository;
+
 	@GetMapping("/huntingplan/create")
-	@Secured({"ROLE_LOWCZY"})
+	@Secured({ "ROLE_LOWCZY" })
 	public String huntingPlanCreate(Model model) {
 		String season = getSeasonToCreateHuntnigPlan();
 		HuntingPlan isSeasonExist = huntingPlanService.findHuntingPlanByHuntingSeason(season);
@@ -53,7 +62,7 @@ public class LowczyPageController {
 	}
 
 	@PostMapping("/huntingplan/created")
-	@Secured({"ROLE_LOWCZY"})
+	@Secured({ "ROLE_LOWCZY" })
 	public String huntingPlaneCreated(Model model, @Valid HuntingPlan huntingPlan, BindingResult result) {
 		String season = getSeasonToCreateHuntnigPlan();
 		if (result.hasErrors())
@@ -82,7 +91,7 @@ public class LowczyPageController {
 	}
 
 	@GetMapping("/huntingplan/update/{id}")
-	@Secured({"ROLE_LOWCZY"})
+	@Secured({ "ROLE_LOWCZY" })
 	public String editHuntinPlan(Model model, @PathVariable int id) {
 		HuntingPlan huntingPlan = huntingPlanService.findHuntingPlanById(id);
 		model.addAttribute("huntingPlan", huntingPlan);
@@ -90,9 +99,8 @@ public class LowczyPageController {
 	}
 
 	@PostMapping("huntingplan/updated")
-	@Secured({"ROLE_LOWCZY"})
+	@Secured({ "ROLE_LOWCZY" })
 	public String editedHuntingPlan(Model model, @Valid HuntingPlan huntingPlan, BindingResult result) {
-
 		if (result.hasErrors())
 			return "lowczy/huntingPlanEdit";
 		huntingPlanService.saveHuntingPlan(huntingPlan);
@@ -104,17 +112,17 @@ public class LowczyPageController {
 	}
 
 	@RequestMapping("/huntingplan/current")
-	@Secured({"ROLE_LOWCZY"})
+	@Secured({ "ROLE_LOWCZY" })
 	public String showCurrentHuntingPlan(Model model) {
 
 		HuntingPlan huntingPlan = new HuntingPlan();
 		huntingPlan = huntingPlanService.findHuntingPlanByCreationYear(findOutCurrentHuntingPlan());
-		
 		model.addAttribute("huntingPlan", huntingPlan);
 		return "lowczy/huntingPlan";
 	}
-	
+
 	@RequestMapping("/userslist")
+	@Secured({ "ROLE_LOWCZY" })
 	public String showUsersList(Model model) {
 		List<User> usersList = new ArrayList<>();
 		usersList = userService.findAll();
@@ -122,9 +130,53 @@ public class LowczyPageController {
 		return "lowczy/usersList";
 	}
 
+	@RequestMapping("/shootinglist")
+	@Secured({ "ROLE_LOWCZY" })
+	public String showShootingsList(Model model) {
+		List<Shooting> shootingList = new ArrayList<>();
+		shootingList = shootingService.findAllShooting();
+		model.addAttribute("shootingList", shootingList);
+		return "lowczy/shootingsList";
+	}
+
+	@GetMapping("/setshooting/{id}")
+	@Secured({ "ROLE_LOWCZY" })
+	public String setShooting(Model model, @PathVariable int id) {
+		Shooting shooting = new Shooting();
+		User user = userService.findUserById(id);
+		shooting.setUser(user);
+		shooting.setNameOfHunter(user.getName());
+		shooting.setLastNameOfHunter(user.getLastName());
+		shooting.setCity(user.getCity());
+		shooting.setStreet(user.getStreet());
+		shooting.setNumberOfBuilding(user.getNumberOfBuilding());
+		shooting.setNumberOfApartment(user.getNumberOfApartment());
+		shooting.setPostCode(user.getPostCode());
+		model.addAttribute("shooting", shooting);
+		return "lowczy/setShooting";
+	}
+
+	@PostMapping("/setedshooting")
+	@Secured({"ROLE_LOWCZY"})
+	public String setedShooting(Model model, Shooting shooting, BindingResult result) {
+		if(result.hasErrors())
+			return "lowczy/setShooting";
+		
+		shootingRepository.save(shooting);
+		model.addAttribute("message", "Poprawnie utworzono odstrzał dla myśliwego: " + shooting.getUser().getName()
+				+ " " + shooting.getUser().getLastName());
+		return "index";
+	}
 	
+	@GetMapping("/openshooting/{id}")
+	@Secured({"ROLE_LOWCZY"})
+	public String openShooting(Model model, @PathVariable int id) {
+		Shooting shooting = shootingService.findShootingById(id);
+		model.addAttribute("shooting", shooting);
+		return "lowczy/openShooting";
+	}
 	
-	
+
 	@ModelAttribute("data")
 	public List<String> fillingHuntinPlan() {
 		List<String> data = new ArrayList<>();
@@ -149,28 +201,24 @@ public class LowczyPageController {
 		String season = "" + year + "/" + (year + 1);
 		return season;
 	}
-	
+
 	private Integer findOutCurrentHuntingPlan() {
 		Integer yearOfCreatingHuntingPlan = null;
 
 		int currentYear = Year.now().getValue();
 		LocalDateTime currentTime = LocalDateTime.now();
-		LocalDateTime startOfTheSeasonInFirstPart = 
-				LocalDateTime.parse(currentYear + "-04-01T00:00");
-		LocalDateTime endOfTheSeasonInFirstPart = 
-				LocalDateTime.parse((currentYear + 1) + "-03-31T23:59:59.999");
-		
-		LocalDateTime startOfTheSeasonInSecondPart = 
-				LocalDateTime.parse((currentYear-1)+"-04-01T00:00");
-		LocalDateTime endOfTheSeasonInSecondPart = 
-				LocalDateTime.parse(currentYear+"-03-31T23:59:59.999");
+		LocalDateTime startOfTheSeasonInFirstPart = LocalDateTime.parse(currentYear + "-04-01T00:00");
+		LocalDateTime endOfTheSeasonInFirstPart = LocalDateTime.parse((currentYear + 1) + "-03-31T23:59:59.999");
+
+		LocalDateTime startOfTheSeasonInSecondPart = LocalDateTime.parse((currentYear - 1) + "-04-01T00:00");
+		LocalDateTime endOfTheSeasonInSecondPart = LocalDateTime.parse(currentYear + "-03-31T23:59:59.999");
 
 		if (currentTime.isAfter(startOfTheSeasonInFirstPart) && currentTime.isBefore(endOfTheSeasonInFirstPart)) {
 			yearOfCreatingHuntingPlan = currentYear;
-		} else if(currentTime.isAfter(startOfTheSeasonInSecondPart)&& currentTime.isBefore(endOfTheSeasonInSecondPart)){
+		} else if (currentTime.isAfter(startOfTheSeasonInSecondPart)
+				&& currentTime.isBefore(endOfTheSeasonInSecondPart)) {
 			yearOfCreatingHuntingPlan = currentYear - 1;
 		}
-		
 		return yearOfCreatingHuntingPlan;
 	}
 

@@ -2,6 +2,7 @@ package radkwiat.bookOfHunting.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +29,7 @@ public class HuntingPlan {
 	
 	private int creatingYear;
 	
-	@OneToMany(mappedBy="huntingPlan")
+	@OneToMany(mappedBy="huntingPlan", cascade=CascadeType.ALL)
 	private List<User> userList;
 	
 	

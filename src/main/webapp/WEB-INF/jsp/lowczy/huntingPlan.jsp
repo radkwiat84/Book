@@ -17,7 +17,8 @@
 
 	<table border="1px solid black">
 		<tr>
-			<td><s:message code="hunting.plan" /> <c:out value="${huntingPlan.huntingSeason }"/></td>
+			<td colspan="2" align="center"><s:message code="hunting.plan" />
+				<c:out value="${huntingPlan.huntingSeason }" /></td>
 		</tr>
 		<tr>
 			<td><s:message code="hunting.plan.zwierze" /></td>
@@ -44,10 +45,11 @@
 			<td><c:out value="${huntingPlan.liczbaWycinkow }" /></td>
 		</tr>
 		<tr>
-			<td><input type="button" value="<s:message code='button.edit'/>"
-				onclick="window.location.href='${pageContext.request.contextPath}/lowczy/huntingplan/update/${huntingPlan.id }'"></td>
-				<td><input type="button" value="<s:message code='button.return'/>"
-				onclick="window.location.href='${pageContext.request.contextPath}/lowczy/huntingplans'"></td>
+
+			<td colspan="2"><input type="button"
+				value="<s:message code='button.return'/>"
+				onclick="window.location.href='${pageContext.request.contextPath}/lowczy/huntingplans'">
+			</td>
 		</tr>
 	</table>
 </body>

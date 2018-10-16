@@ -43,8 +43,6 @@ public class Shooting {
 	@NotEmpty
 	private String postCode;
 	
-	
-	
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;

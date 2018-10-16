@@ -57,6 +57,12 @@ public class User {
 	@JoinColumn(name="huntingplan_id")
 	private HuntingPlan huntingPlan;
 	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	private List<Boar> listOfBoars;
+	
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL)
+	private List<Dear> listOfDears;
+	
 	
 	@Transient
 	private int rolaInt; 
@@ -75,6 +81,8 @@ public class User {
 	@NotEmpty(message="Kod pocztowy jest wymagany.")
 	private String postCode;
 	
+	
+	
 	//================================================GETERY I SETTERY================
 	
 	
@@ -82,6 +90,20 @@ public class User {
 	public int getRolaInt() {
 		return rolaInt;
 	}
+
+	
+
+	public List<Boar> getListOfBoars() {
+		return listOfBoars;
+	}
+
+
+
+	public void setListOfBoars(List<Boar> listOfBoars) {
+		this.listOfBoars = listOfBoars;
+	}
+
+
 
 	public HuntingPlan getHuntingPlan() {
 		return huntingPlan;

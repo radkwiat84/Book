@@ -17,7 +17,7 @@
 
 	<table border="1px solid black">
 		<tr>
-			<td><s:message code="shooting.shooting.list" /></td>
+			<td colspan="5" align="center"><s:message code="shooting.shooting.list" /></td>
 		</tr>
 		
 		<tr>

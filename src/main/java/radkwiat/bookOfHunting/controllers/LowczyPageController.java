@@ -18,9 +18,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import radkwiat.bookOfHunting.models.Boar;
+import radkwiat.bookOfHunting.models.Dear;
 import radkwiat.bookOfHunting.models.HuntingPlan;
 import radkwiat.bookOfHunting.models.Shooting;
 import radkwiat.bookOfHunting.models.User;
+import radkwiat.bookOfHunting.repository.BoarRepository;
+import radkwiat.bookOfHunting.repository.DearRepository;
 import radkwiat.bookOfHunting.repository.HuntingPlanRepository;
 import radkwiat.bookOfHunting.repository.ShootingRepository;
 import radkwiat.bookOfHunting.service.HuntingPlanService;
@@ -43,9 +47,15 @@ public class LowczyPageController {
 
 	@Autowired
 	ShootingService shootingService;
-	
+
 	@Autowired
 	ShootingRepository shootingRepository;
+
+	@Autowired
+	BoarRepository boarRepository;
+
+	@Autowired
+	DearRepository dearRepository;
 
 	@GetMapping("/huntingplan/create")
 	@Secured({ "ROLE_LOWCZY" })
@@ -111,7 +121,7 @@ public class LowczyPageController {
 		return "lowczy/huntingPlans";
 	}
 
-	@RequestMapping("/huntingplan/current")
+	@GetMapping("/huntingplan/current")
 	@Secured({ "ROLE_LOWCZY" })
 	public String showCurrentHuntingPlan(Model model) {
 
@@ -142,8 +152,14 @@ public class LowczyPageController {
 	@GetMapping("/setshooting/{id}")
 	@Secured({ "ROLE_LOWCZY" })
 	public String setShooting(Model model, @PathVariable int id) {
-		Shooting shooting = new Shooting();
+		Boar boar = new Boar();
+		Dear dear = new Dear();
+		boar.setDzikToExecute(0);
+		dear.setJelenToExecute(0);
+
 		User user = userService.findUserById(id);
+
+		Shooting shooting = new Shooting();
 		shooting.setUser(user);
 		shooting.setNameOfHunter(user.getName());
 		shooting.setLastNameOfHunter(user.getLastName());
@@ -152,30 +168,37 @@ public class LowczyPageController {
 		shooting.setNumberOfBuilding(user.getNumberOfBuilding());
 		shooting.setNumberOfApartment(user.getNumberOfApartment());
 		shooting.setPostCode(user.getPostCode());
+
 		model.addAttribute("shooting", shooting);
+		model.addAttribute("boar", boar);
+		model.addAttribute("dear", dear);
 		return "lowczy/setShooting";
 	}
 
-	@PostMapping("/setedshooting")
-	@Secured({"ROLE_LOWCZY"})
-	public String setedShooting(Model model, Shooting shooting, BindingResult result) {
-		if(result.hasErrors())
+	@PostMapping("/settedshooting")
+	@Secured({ "ROLE_LOWCZY" })
+	public String setedShooting(Model model, User user, Shooting shooting, Boar boar, Dear dear,
+			 BindingResult resultShooting) {
+		if (resultShooting.hasErrors())
 			return "lowczy/setShooting";
+
 		
+		dearRepository.save(dear);
+		boarRepository.save(boar);
 		shootingRepository.save(shooting);
+
 		model.addAttribute("message", "Poprawnie utworzono odstrzał dla myśliwego: " + shooting.getUser().getName()
 				+ " " + shooting.getUser().getLastName());
 		return "index";
 	}
-	
+
 	@GetMapping("/openshooting/{id}")
-	@Secured({"ROLE_LOWCZY"})
+	@Secured({ "ROLE_LOWCZY" })
 	public String openShooting(Model model, @PathVariable int id) {
 		Shooting shooting = shootingService.findShootingById(id);
 		model.addAttribute("shooting", shooting);
 		return "lowczy/openShooting";
 	}
-	
 
 	@ModelAttribute("data")
 	public List<String> fillingHuntinPlan() {

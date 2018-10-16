@@ -16,9 +16,9 @@
 <body>
 
 <%@ include file="/WEB-INF/incl/menu.incl" %>
-	<table>
+	<table border="1px solid black">
 		<tr>
-			<td><s:message code="shooting.users.list" /></td>
+			<td colspan="4" align="center"><s:message code="shooting.users.list" /></td>
 		</tr>
 		<tr>
 			<td><s:message code="shooting.user.id" /></td>
